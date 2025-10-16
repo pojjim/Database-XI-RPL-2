@@ -1,0 +1,156 @@
+Microsoft Windows [Version 10.0.26200.6584]
+(c) Microsoft Corporation. All rights reserved.
+
+C:\Users\USER>cd C:\xampp
+
+C:\xampp>cd C:\xampp\mysql\bin
+
+C:\xampp\mysql\bin>mysql -u root -p
+Enter password:
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 104
+Server version: 10.4.32-MariaDB mariadb.org binary distribution
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]> show databases;
++--------------------------------+
+| Database                       |
++--------------------------------+
+| aplikasi penjual mobil         |
+| aplikasi_penjualan mobil       |
+| aplikasi_penjualan mobil mobil |
+| aplikasi_penjualan mobil saya  |
+| db_login                       |
+| db_login_user                  |
+| db_minuman                     |
+| db_naurah                      |
+| db_naurahhh                    |
+| db_sekolah                     |
+| db_sekolahh                    |
+| db_skul                        |
+| db_smk3                        |
+| dbrs                           |
+| dokter                         |
+| ecommerce_atk                  |
+| information_schema             |
+| klinik_poji                    |
+| klinik_sederhana               |
+| mysql                          |
+| naurahh                        |
+| pendaftaran siswa              |
+| pendaftaran_siswa              |
+| performance_schema             |
+| perpustakan digital            |
+| perpustakan digital1           |
+| phpmyadmin                     |
+| sekolah                        |
+| sekolah-poji                   |
+| siswa                          |
+| siswarpl1                      |
+| siswarpl_poji                  |
+| table_in_siswa                 |
+| test                           |
++--------------------------------+
+34 rows in set (0.001 sec)
+
+MariaDB [(none)]> use klinik_poji;
+Database changed
+MariaDB [klinik_poji]> create table dokter (
+    -> id_dokter INT PRIMARY KEY AUTO_INCREMENT,
+    -> nama VARCHAR(100) NOT NULL,
+    -> spesialisasi VARCHAR (100),
+    -> no_telepon VARCHAR (15)
+    -> );
+Query OK, 0 rows affected (0.012 sec)
+
+MariaDB [klinik_poji]> create table pasien (
+    -> id_pasien INT PRIMARY KEY AUTO_INCREMENT,
+    -> nama VARCHAR(100) NOT NULL,
+    -> no_telepon VARCHAR (15)
+    -> );
+Query OK, 0 rows affected (0.010 sec)
+
+MariaDB [klinik_poji]> create table janji_temu1 (
+    -> id_janji_temu INT PRIMARY KEY AUTO_INCREMENT,
+    -> id_dokter INT,
+    -> id_pasien INT,
+    -> tanggal DATE,
+    -> FOREIGN KEY (id_dokter) REFERENCES dokter(id_dokter),
+    -> FOREIGN KEY (id_pasien) REFERENCES pasien(id_pasien)
+    -> );
+Query OK, 0 rows affected (0.033 sec)
+
+MariaDB [klinik_poji]> INSERT INTO dokter(nama,spesialisasi,no_telepon) VALUES
+    -> ('Dr. Ahmad','fusi nuklir','08123456789'),
+    -> ('Dr.Akmal','persalinan','08123456780');
+Query OK, 2 rows affected (0.005 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+MariaDB [klinik_poji]> INSERT INTO pasien (nama,no_telepon)VALUES
+    -> ('poji','08223456789'),
+    -> ('adit','08223456780');
+Query OK, 2 rows affected (0.005 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+MariaDB [klinik_poji]> INSERT INTO janji_temu1 (id_dokter, id_pasien, tanggal) VALUES
+    -> (1, 1, '2024-09-01'),
+    -> (2, 2, '2024-09-02');
+Query OK, 2 rows affected (0.005 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+MariaDB [klinik_poji]> SELECT
+    -> janji_temu1.id_janji_temu,
+    -> dokter.nama AS nama_dokter,
+    -> pasien.nama AS nama_pasien,
+    -> janji_temu1.tanggal
+    -> FROM
+    -> janji_temu1
+    -> JOIN dokter ON janji_temu1.id_dokter = dokter.id_dokter
+    -> JOIN pasien ON janji_temu1.id_pasien = pasien.id_pasien;
++---------------+-------------+-------------+------------+
+| id_janji_temu | nama_dokter | nama_pasien | tanggal    |
++---------------+-------------+-------------+------------+
+|             1 | Dr. Ahmad   | poji        | 2024-09-01 |
+|             2 | Dr.Akmal    | adit        | 2024-09-02 |
++---------------+-------------+-------------+------------+
+2 rows in set (0.005 sec)
+
+MariaDB [klinik_poji]> select *from dokter;
++-----------+-----------+--------------+-------------+
+| id_dokter | nama      | spesialisasi | no_telepon  |
++-----------+-----------+--------------+-------------+
+|         1 | Dr. Ahmad | fusi nuklir  | 08123456789 |
+|         2 | Dr.Akmal  | persalinan   | 08123456780 |
++-----------+-----------+--------------+-------------+
+2 rows in set (0.001 sec)
+
+MariaDB [klinik_poji]> select*from pasien;
++-----------+------+-------------+
+| id_pasien | nama | no_telepon  |
++-----------+------+-------------+
+|         1 | poji | 08223456789 |
+|         2 | adit | 08223456780 |
++-----------+------+-------------+
+2 rows in set (0.001 sec)
+
+MariaDB [klinik_poji]> select *from janji_temu1;
++---------------+-----------+-----------+------------+
+| id_janji_temu | id_dokter | id_pasien | tanggal    |
++---------------+-----------+-----------+------------+
+|             1 |         1 |         1 | 2024-09-01 |
+|             2 |         2 |         2 | 2024-09-02 |
++---------------+-----------+-----------+------------+
+2 rows in set (0.001 sec)
+
+MariaDB [klinik_poji]> show tables;
++-----------------------+
+| Tables_in_klinik_poji |
++-----------------------+
+| dokter                |
+| janji_temu1           |
+| pasien                |
++-----------------------+
+3 rows in set (0.001 sec)

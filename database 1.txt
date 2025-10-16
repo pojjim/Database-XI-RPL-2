@@ -1,0 +1,86 @@
+ Microsoft Windows [Version 10.0.26100.4770] 
+
+(c) Microsoft Corporation. All rights reserved. 
+
+C:\Users\USER>cd C:\xampp 
+
+C:\xampp>cd C:\xampp\mysql\bin 
+
+C:\xampp\mysql\bin>mysql -u root -p 
+
+Enter password: 
+
+Welcome to the MariaDB monitor.  Commands end with ; or \g. 
+Your MariaDB connection id is 8 
+Server version: 10.4.32-MariaDB mariadb.org binary distribution 
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others. 
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement. 
+
+MariaDB [(none)]> show databases; 
++--------------------------------+ 
+| Database
+                       | 
++--------------------------------+ 
+| aplikasi penjual mobil
+ | aplikasi_penjualan mobil
+         | 
+       | 
+| aplikasi_penjualan mobil mobil | 
+| aplikasi_penjualan mobil saya  | 
+| db_login                       | 
+| db_login_user                  | 
+| db_minuman                     | 
+| db_naurah                      | 
+| db_naurahhh                    | 
+| db_sekolah                     | 
+| db_sekolahh                    | 
+| db_skul                        | 
+| db_smk3                        | 
+| dbrs                           | 
+| dokter                         | 
+| information_schema             | 
+| klinik_sederhana               | 
+| mysql                          | 
+| naurahh                        | 
+| pendaftaran siswa              | 
+| pendaftaran_siswa              | 
+| performance_schema             | 
+| perpustakan digital            | 
+| perpustakan digital1           | 
+| phpmyadmin                     | 
+| sekolah                        | 
+| siswa                          | 
+| table_in_siswa                 | 
+| test                           | 
++--------------------------------+ 
+29 rows in set (0.006 sec) 
+ 
+MariaDB [(none)]> use siswa; 
+
+MariaDB [siswa]> create table siswa( -> id int (11)Auto_increment Primary Key, -> nama varchar (100), -> umur INT, -> Kelas varchar(10), -> alamat Text -> ); 
+
+ERROR 1050 (42S01): Table 'siswa' already exists 
+
+MariaDB [siswa]> insert into siswa(nama,umur,Kelas,alamat)values -> ('Ahmad Fauzi','17','XIRPL2','Jl.cinta karya'); 
+Query OK, 1 row affected (0.038 sec) 
+
+MariaDB [siswa]> show tables; 
++-----------------+ 
+| Tables_in_siswa | 
++-----------------+ 
+| siswa
+           | 
++-----------------+ 
+1 row in set (0.001 sec) 
+MariaDB [siswa]> select*from siswa; 
++----+------------------------+------+--------+--------------------+ 
+| id | nama
+                   | umur | Kelas  | alamat             | 
++----+------------------------+------+--------+--------------------+ 
+|  1 | Naurah Nadhifah kesuma |   15 | XIRPL1 | Jl.belanda NO 30 B | 
+|  2 | Ahmad Fauzi           
+ |   17 | XIRPL2 | Jl.cinta karya
+     | 
++----+------------------------+------+--------+--------------------+ 
+2 rows in set (0.001 sec) 
+MariaDB [siswa]> 

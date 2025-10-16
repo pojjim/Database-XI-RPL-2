@@ -1,0 +1,57 @@
+cd C:\xampp\mysql\bin
+mysql -u root -p
+
+SHOW DATABASES;
+
+CREATE DATABASE sismaRPL_poji;
+USE sismaRPL_poji;
+
+CREATE TABLE jurusan (
+    id_jurusan INT AUTO_INCREMENT PRIMARY KEY,
+    nama_jurusan VARCHAR(100) NOT NULL
+);
+
+INSERT INTO jurusan (nama_jurusan) VALUES
+('Rekayasa Perangkat Lunak'),
+('Teknik Komputer dan Jaringan');
+
+CREATE TABLE guru (
+    id_guru INT AUTO_INCREMENT PRIMARY KEY,
+    nama_guru VARCHAR(100) NOT NULL,
+    nip VARCHAR(20),
+    mata_pelajaran VARCHAR(100)
+);
+
+INSERT INTO guru (nama_guru, nip, mata_pelajaran) VALUES
+('Syahrul', '19023156', 'Basis Data'),
+('Ridiffa Gunawan', '19023159', 'Pemrograman Web');
+
+CREATE TABLE siswa (
+    id_siswa INT AUTO_INCREMENT PRIMARY KEY,
+    nama_siswa VARCHAR(100) NOT NULL,
+    nis VARCHAR(20) UNIQUE,
+    alamat TEXT,
+    id_jurusan INT,
+    id_guru INT,
+    FOREIGN KEY (id_jurusan) REFERENCES jurusan(id_jurusan),
+    FOREIGN KEY (id_guru) REFERENCES guru(id_guru)
+);
+
+-- Menambahkan data ke tabel siswa
+INSERT INTO siswa (nama_siswa, nis, alamat, id_jurusan, id_guru) VALUES
+('Acha Syahna', '202301', 'Meulaboh', 1, 1),
+('Achmad Fauzi', '202302', 'Polonia', 1, 1),
+('Aditya Saputra', '202303', 'Langsa', 2, 2),
+('Al-Fathan', '202304', 'Polonia', 2, 2);
+
+
+SELECT 
+    s.id_siswa,
+    s.nama_siswa,
+    s.nis,
+    s.alamat,
+    j.nama_jurusan,
+    g.nama_guru AS wali_kelas
+FROM siswa s
+JOIN jurusan j ON s.id_jurusan = j.id_jurusan
+JOIN guru g ON s.id_guru = g.id_guru;
